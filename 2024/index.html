@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- "defer" means that the DOM gets loaded before the script is executed -->
+    <meta charset="utf-8" />
+    <!-- make the page responsive (though I don't always want this) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://unpkg.com/vue-multiselect"></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/vue-multiselect/dist/vue-multiselect.css">
+    <title>vue 3 template</title>
+  </head>
+<style>
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 10px;
+  grid-template-rows: 1fr 1fr;
+
+}
+
+.header {
+  text-align: center;
+}
+
+.day {
+  border: 1px solid black;
+  padding: 10px;
+}
+h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+</style>
+  <body>
+    <div id="app">
+      <div>
+        Choose the shows you're interested in:
+        <vue-multiselect v-model="titles" :multiple="true" :clear-on-select="false" :options="performanceTitles()"></vue-multiselect>
+      </div>
+
+      <div class="calendar">
+        <!-- put the first day on a wednesday -->
+        <div class="header"> Mon </div>
+        <div class="header"> Tue </div>
+        <div class="header"> Wed </div>
+        <div class="header"> Thu </div>
+        <div class="header"> Fri </div>
+        <div class="header"> Sat </div>
+        <div class="header"> Sun </div>
+      </div>
+      <div class="calendar">
+
+
+        <div class="day" v-for="day in fringeDates()" :key="day" :style="{gridColumn: (fringeDates().indexOf(day) + 1) % 7}">
+          <h2>{{ formatDate(day) }}</h2>
+          <div v-for="performance in fringeShows(day)" :key="performance.title">
+            <!-- format: 6pm  -- I Hate Magic (link)-->
+            {{ performance.performances.times[day][0].performanceTime }} - <a :href="performance.link">{{ performance.title }}</a>
+
+          </div>
+        </div>
+        
+    </div>
+  </body>
+</html>
