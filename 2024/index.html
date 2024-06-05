@@ -63,10 +63,10 @@ h1 {
       <h1 v-else>Calendrier non officiel du Fringe 2024</h1>
       <div class="language-switcher">
         <span v-if="english">
-          EN | <a @click="english = false">FR</a>
+          EN | <a @click="language = 'fr'">FR</a>
         </span>
         <span v-else>
-          <a @click="english = true">EN</a> | FR
+          <a @click="language = 'en'">EN</a> | FR
         </span>
       </div>
       <div class="intro">

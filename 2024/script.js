@@ -5,6 +5,11 @@ const app = Vue.createApp({
     if (hash) {
       this.titles = hash.split("::");
     }
+    // get language from local storage if possible
+    const language = localStorage.getItem("language");
+    if (language) {
+      this.language = language;
+    }
     // get performances-2024.json
     const json = await fetch("performances-2024.json");
     const performances = await json.json();
@@ -20,7 +25,7 @@ const app = Vue.createApp({
     return {
       performances: {},
       titles: [],
-      english: true,
+      language: "en",
     };
   },
   // put titles in hash when they change
@@ -28,6 +33,14 @@ const app = Vue.createApp({
     titles() {
       const hash = this.titles.join("::");
       window.location.hash = hash;
+    },
+    language() {
+      localStorage.setItem("language", this.language);
+    },
+  },
+  computed: {
+    english() {
+      return this.language === "en";
     },
   },
   methods: {
