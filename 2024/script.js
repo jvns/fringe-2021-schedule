@@ -45,7 +45,12 @@ const app = Vue.createApp({
   },
   methods: {
     performanceTitles() {
-      return Object.keys(this.performances);
+      const titles = Object.keys(this.performances);
+      //sort, ignore case
+      titles.sort((a, b) =>
+        a.localeCompare(b, undefined, { sensitivity: "base" }),
+      );
+      return titles;
     },
     testMethod() {
       return "hello!";
