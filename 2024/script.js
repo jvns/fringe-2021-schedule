@@ -20,6 +20,7 @@ const app = Vue.createApp({
     return {
       performances: {},
       titles: [],
+      english: true,
     };
   },
   // put titles in hash when they change
@@ -39,7 +40,7 @@ const app = Vue.createApp({
     formatDate(date) {
       // translate 07/06/2024 to 'June 7'
       const [day, month, year] = date.split("/");
-      return "June " + parseInt(day);
+      return parseInt(day);
     },
     fringeShows(day) {
       const shows = [];

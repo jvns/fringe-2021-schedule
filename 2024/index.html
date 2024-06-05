@@ -36,29 +36,70 @@ h2 {
 .show a {
   color: black;
 }
+
+.intro {
+  padding-bottom: 1rem;
+}
+.language-switcher {
+  padding: 1rem;
+  text-align: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 1.5rem;
+}
+
+.language-switcher a {
+  cursor: pointer;
+  text-decoration: underline;
+}
+h1 {
+  text-align: center;
+}
 </style>
   <body>
     <div id="app">
-      <div>
-        Choose the shows you're interested in:
-        <vue-multiselect v-model="titles" :multiple="true" :clear-on-select="false" :options="performanceTitles()"></vue-multiselect>
+      <h1 v-if="english">Unofficial Fringe 2024 calendar</h1>
+      <h1 v-else>Calendrier non officiel du Fringe 2024</h1>
+      <div class="language-switcher">
+        <span v-if="english">
+          EN | <a @click="english = false">FR</a>
+        </span>
+        <span v-else>
+          <a @click="english = true">EN</a> | FR
+        </span>
+      </div>
+      <div class="intro">
+        <span v-if="english"> Choose the shows you're interested in: </span> 
+        <span v-else> Choisissez les événements qui vous intéressent: </span>
+        <vue-multiselect v-model="titles" 
+          :multiple="true" 
+          :placeholder="english ? 'Select some shows' : 'Sélectionnez des événements'"
+          :select-label="english ? 'Press enter to select' : 'Appuyez sur Entrée pour sélectionner'"
+          :deselect-label="english ? 'Press enter to remove' : 'Appuyez sur Entrée pour supprimer'"
+          :selected-label="english ? 'Selected' : 'Sélectionné'"
+          :clear-on-select="false" 
+          :options="performanceTitles()"></vue-multiselect>
       </div>
 
       <div class="calendar">
         <!-- put the first day on a wednesday -->
-        <div class="header"> Mon </div>
-        <div class="header"> Tue </div>
-        <div class="header"> Wed </div>
-        <div class="header"> Thu </div>
-        <div class="header"> Fri </div>
-        <div class="header"> Sat </div>
-        <div class="header"> Sun </div>
+        <div class="header"> <span v-if="english">Mon</span> <span v-else>Lun</span> </div>
+        <div class="header"> <span v-if="english">Tue</span> <span v-else>Mar</span> </div> 
+        <div class="header"> <span v-if="english">Wed</span> <span v-else>Mer</span> </div>
+        <div class="header"> <span v-if="english">Thu</span> <span v-else>Jeu</span> </div>
+        <div class="header"> <span v-if="english">Fri</span> <span v-else>Ven</span> </div>
+        <div class="header"> <span v-if="english">Sat</span> <span v-else>Sam</span> </div>
+        <div class="header"> <span v-if="english">Sun</span> <span v-else>Dim</span> </div>
       </div>
       <div class="calendar">
 
 
         <div class="day" v-for="day in fringeDates()" :key="day" :style="{gridColumn: (fringeDates().indexOf(day) + 1) % 7}">
-          <h2>{{ formatDate(day) }}</h2>
+          <h2>
+            <span v-if="english">June {{ formatDate(day) }} </span>
+            <span v-else>{{ formatDate(day) }} juin</span>
+          </h2>
           <div v-for="performance in fringeShows(day)" :key="performance.title">
             <!-- format: 6pm  -- I Hate Magic (link)-->
             <div class="show">
@@ -69,5 +110,6 @@ h2 {
         </div>
         
     </div>
+
   </body>
 </html>
