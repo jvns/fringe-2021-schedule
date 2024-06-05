@@ -19,7 +19,7 @@ const app = Vue.createApp({
   data() {
     return {
       performances: {},
-      titles: ["I Hate Magic"],
+      titles: [],
     };
   },
   // put titles in hash when they change

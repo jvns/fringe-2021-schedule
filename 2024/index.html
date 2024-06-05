@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/vue-multiselect"></script>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="https://unpkg.com/vue-multiselect/dist/vue-multiselect.css">
-    <title>vue 3 template</title>
+    <title>fringe 2024</title>
   </head>
 <style>
 .calendar {
@@ -31,6 +31,10 @@ h2 {
   margin: 0;
   font-size: 1.2rem;
   margin-bottom: 1rem;
+}
+
+.show a {
+  color: black;
 }
 </style>
   <body>
@@ -57,7 +61,9 @@ h2 {
           <h2>{{ formatDate(day) }}</h2>
           <div v-for="performance in fringeShows(day)" :key="performance.title">
             <!-- format: 6pm  -- I Hate Magic (link)-->
-            {{ performance.performances.times[day][0].performanceTime }} - <a :href="performance.link">{{ performance.title }}</a>
+            <div class="show">
+            {{ performance.performances.times[day][0].performanceTime }} - <a class="title" :href="performance.link">{{ performance.title }}</a>
+            </div>
 
           </div>
         </div>
