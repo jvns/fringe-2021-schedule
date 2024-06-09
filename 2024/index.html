@@ -108,7 +108,10 @@ h1 {
           <div v-for="performance in fringeShows(day)" :key="performance.title">
             <!-- format: 6pm  -- I Hate Magic (link)-->
             <div class="show">
-            {{ performance.performances.times[day][0].performanceTime }} - <a class="title" :href="performance.link">{{ performance.title }}</a>
+            {{ performance.performances.times[day][0].performanceTime }} - <a class="title" :href="performance.link" 
+                                                                              @mouseover="hoveredShow = performance.title" @mouseleave="hoveredShow = undefined"
+                                                                              :style="{'background-color': hoveredShow === performance.title ? '#fffad7' : 'white'}"
+                                                                              >{{ performance.title }}</a>
             </div>
 
           </div>

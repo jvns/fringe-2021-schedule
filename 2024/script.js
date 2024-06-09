@@ -29,6 +29,7 @@ const app = Vue.createApp({
     return {
       performances: {},
       titles: [],
+      hoveredShow: undefined,
       language: "en",
     };
   },
