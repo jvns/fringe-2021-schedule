@@ -1,10 +1,14 @@
 const app = Vue.createApp({
   async mounted() {
-    // get titles from hash
-    const hash = decodeURIComponent(window.location.hash.slice(1));
-    if (hash) {
-      this.titles = hash.split("::");
-    }
+    this.readHash();
+    window.addEventListener(
+      "hashchange",
+      () => {
+        console.log("hashchange");
+        this.readHash();
+      },
+      false,
+    );
     // get language from local storage if possible
     const language = localStorage.getItem("language");
     if (language) {
@@ -44,6 +48,14 @@ const app = Vue.createApp({
     },
   },
   methods: {
+    readHash() {
+      const hash = decodeURIComponent(window.location.hash.slice(1));
+      if (hash) {
+        this.titles = hash.split("::");
+      } else {
+        this.titles = [];
+      }
+    },
     performanceTitles() {
       const titles = Object.keys(this.performances);
       //sort, ignore case
