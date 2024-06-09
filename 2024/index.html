@@ -1,13 +1,13 @@
 <html>
   <head>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="vue.global.js"></script>
     <!-- "defer" means that the DOM gets loaded before the script is executed -->
     <meta charset="utf-8" />
     <!-- make the page responsive (though I don't always want this) -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://unpkg.com/vue-multiselect"></script>
+    <script src="vue-multiselect.js"></script>
     <script src="script.js" defer></script>
-    <link rel="stylesheet" href="https://unpkg.com/vue-multiselect/dist/vue-multiselect.css">
+    <link rel="stylesheet" href="vue-multiselect.css">
     <title>fringe 2024</title>
   </head>
 <style>
@@ -56,6 +56,10 @@ h2 {
 h1 {
   text-align: center;
 }
+.allclear {
+  text-decoration: underline;
+  cursor: pointer;
+}
 </style>
   <body>
     <div id="app">
@@ -70,7 +74,8 @@ h1 {
         </span>
       </div>
       <div class="intro">
-        <span v-if="english"> Choose the shows you're interested in: </span> 
+        <span v-if="english"> Choose the shows you're interested in (<a class="allclear" @click="titles = Object.keys(performances)">all</a>, 
+          <a class="allclear" @click="titles = []">clear</a>): </span>
         <span v-else> Choisissez les événements qui vous intéressent: </span>
         <vue-multiselect v-model="titles" 
           :multiple="true" 
